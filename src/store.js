@@ -13,11 +13,17 @@ export default new Vuex.Store(
         },
         mutations: {
             FILL_EVENTS(state, events) {
+                console.log("*** FILL_EVENTS " + JSON.stringify(events))
                 state.events = events
             },
-            addEvent(state, o) {
+            addEventToStore(state, o) {
+                console.log("*** addEventToStore: " + JSON.stringify(o))
                 state.events.push(o)
-            }
+            },
+            removeFromStateById(state, id) {
+                console.log("*** removeFromStateById: " + id)
+                state.events = state.events.filter(item => item.id !== id)
+            },
         },
         actions: {
             fillEvents(ctx, events) {

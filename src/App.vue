@@ -7,7 +7,7 @@
         </b-row>
         <b-row>
             <b-col>
-                <router-view style="margin-top: 10px; text-align: left" :events="events"/>
+                <router-view style="margin-top: 10px; text-align: left" :events="this.$store.state.events"/>
             </b-col>
         </b-row>
     </b-container>
@@ -16,7 +16,6 @@
 
 <script>
     import Navbar from '@/components/Navbar';
-    import {mapActions, mapGetters} from 'vuex';
 
     export default {
 
@@ -24,27 +23,6 @@
         components: {
             Navbar
         },
-        methods: {
-            ...mapActions(['fillEvents']),
-        },
-        computed: {
-            ...mapGetters(['events'])
-        },
-        mounted() {
-            let requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-
-            fetch("http://localhost:3001/events", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                        console.log(result);
-                        this.fillEvents(result);
-                    }
-                )
-                .catch(error => console.log('error', error));
-        }
     }
 </script>
 

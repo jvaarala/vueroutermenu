@@ -18,17 +18,16 @@
             </b-form-group>
 
 
-
             <b-form-group id="input-group-2" label="Lisätietoja:" label-for="input-2">
                 <b-form-input
                         id="input-2"
-                        name="lisatieto"
+                        name="tietoja"
                         v-validate="'required'"
                         v-model="form.tietoja"
                         placeholder=""
-                        :class="{'input': true, 'is-danger': errors.has('lisatieto') }"
+                        :class="{'input': true, 'is-danger': errors.has('tietoja') }"
                 />
-                <span v-show="errors.has('lisatieto')" class="help is-danger">{{ errors.first('lisatieto') }}</span>
+                <span v-show="errors.has('tietoja')" class="help is-danger">{{ errors.first('tietoja') }}</span>
             </b-form-group>
 
 
@@ -52,7 +51,6 @@
                             right
                             :locale="locale"
                             aria-controls="paivamaara"
-                            @context="onContext"
                             :class="{'input': true, 'is-danger': errors.has('paivamaara') }"
                     />
                 </b-input-group-append>
@@ -68,6 +66,7 @@
 </template>
 <script>
     import finnish from 'vee-validate/dist/locale/fi';
+    import axios from 'axios'
 
     export default {
         data() {
@@ -104,24 +103,37 @@
         },
         methods: {
             onReset(evt) {
-                evt.preventDefault()
-                this.form.otsikko = ''
-                this.form.tietoja = ''
-                this.form.aika = ''
-                this.form.kello = ''
+                evt.preventDefault();
+                this.emptyFormFields()
             },
-            onContext(ctx) {
-                // The date formatted in the locale, or the `label-no-date-selected` string
-                this.formatted = ctx.selectedFormatted
+            emptyFormFields() {
+                this.form.otsikko = '';
+                this.form.tietoja = '';
+                this.form.aika = '';
+
             },
             validateBeforeSubmit() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$store.commit('addEvent', this.form)
-                        alert('Tapahtuma lähetetty!');
-                        return;
+                        this.postFormToDb();
+                        this.emptyFormFields();
                     }
                 });
+            },
+            postFormToDb() {
+                let eventObject = {
+                    otsikko: this.form.otsikko,
+                    tietoja: this.form.tietoja,
+                    aika: this.form.aika
+                }
+
+                axios.post('http://localhost:3001/events', eventObject).then(response => {
+                    console.log(response.status, response.statusText)
+                    if (response.status === 201) {
+                        this.$store.commit('addEventToStore', this.form);
+                        alert('Tapahtuma lisätty!');
+                    }
+                }).catch(error => console.log('error', error));
             }
         },
         created() {
@@ -129,7 +141,7 @@
                 messages: finnish.messages,
                 attributes: {
                     otsikko: 'Otsikko',
-                    lisatieto: 'Lisätieto',
+                    tietoja: 'Lisätieto',
                     paivamaara: 'Päivämäärä'
                 }
             });
@@ -143,9 +155,11 @@
     .btn {
         margin: 1rem 1rem 0 0;
     }
+
     .is-danger {
         color: red;
     }
+
     .mb-3 {
         margin-bottom: 0 !important;
     }
