@@ -1,20 +1,14 @@
 <template>
-  <p class="homeText">
-    Listaa tapahtumia
-  </p>
+    <b-table :items="events"/>
 </template>
 <script>
-export default {
-  name: 'ListEvent'
-};
+    export default {
+        props: {
+            events: Array,
+        },
+        name: 'ListEvent'
+    };
 </script>
 <style scoped>
-.homeText{
-  font-size: 35px;
-  color: red;
-  text-align: center;
-  position: relative;
-  top:30px;
-  text-shadow: 2px 2px 2px gray;
-}
+
 </style>

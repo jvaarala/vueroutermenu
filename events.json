@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "otsikko": "Tapahtuma 1",
+      "tietoja": "Lisätietoa tapahtumasta",
+      "aika": "2020-10-2",
+      "kello": "21:01:00"
+    },
+    {
+      "otsikko": "Tapahtuma 2",
+      "tietoja": "Lisätietoa tapahtumasta",
+      "aika": "2020-10-3",
+      "kello": "21:01:00"
+    }
+  ]
+}
