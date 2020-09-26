@@ -11,6 +11,11 @@ Also npm install vue-router and npm install bootstrap-vue is needed.
 npm run serve
 ```
 
+### Start json-server
+```
+npm run server
+```
+
 ### Compiles and minifies for production
 ```
 npm run build

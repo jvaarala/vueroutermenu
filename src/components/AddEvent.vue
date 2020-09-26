@@ -17,7 +17,6 @@
                 <span v-show="errors.has('otsikko')" class="help is-danger">{{ errors.first('otsikko') }}</span>
             </b-form-group>
 
-
             <b-form-group id="input-group-2" label="Lisätietoja:" label-for="input-2">
                 <b-form-input
                         id="input-2"
@@ -29,7 +28,6 @@
                 />
                 <span v-show="errors.has('tietoja')" class="help is-danger">{{ errors.first('tietoja') }}</span>
             </b-form-group>
-
 
             <label for="input-3">Päivämäärä:</label>
             <b-input-group class="mb-3">
@@ -60,7 +58,6 @@
                 <b-button squared type="submit" variant="primary">Lisää</b-button>
                 <b-button squared type="reset" variant="danger">Tyhjennä</b-button>
             </div>
-
         </b-form>
     </div>
 </template>
@@ -91,7 +88,7 @@
                         labelCalendar: 'Kalenteri',
                         labelNav: 'Navigointi',
                         labelHelp: 'Käytä nuolinäppäimiä päivän valitsemiseen',
-                        labelHours: 'Tunnuit',
+                        labelHours: 'Tunnit',
                         labelMinutes: 'Minuutit',
                         labelSeconds: 'Sekuntit',
                         labelIncrement: 'Myöhemmin',
@@ -146,7 +143,7 @@
                 }
             });
 
-            // start with english locale.
+            // start with finnish locale.
             this.$validator.localize('fi');
         }
     };
